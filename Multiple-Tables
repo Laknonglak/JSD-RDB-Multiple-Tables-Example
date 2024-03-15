@@ -1,0 +1,88 @@
+--INNER JOIN
+
+SELECT employees.EmployeeID, employees.FirstName, departments.DepartmentName
+FROM employees
+INNER JOIN departments ON employees.DepartmentID = departments.DepartmentID;
+
+----------------------------------------------------------------------------------------------------
+--Using Alias
+
+SELECT e.EmployeeID, e.FirstName, d.DepartmentName
+FROM employees AS e
+INNER JOIN departments AS d ON e.DepartmentID = d.DepartmentID;
+
+---------------------------------------------------------------------------------------------
+
+/*UPDATE Employees
+SET DepartmentID = NULL
+WHERE EmployeeID = 8;*/
+
+--Left Join
+
+SELECT e.EmployeeID, e.FirstName, d.DepartmentName
+FROM employees AS e
+LEFT JOIN departments AS d ON e.DepartmentID = d.DepartmentID;
+
+---------------------------------------------------------------------------------------------------
+
+--Right Join
+
+SELECT e.EmployeeID, e.FirstName, d.DepartmentName
+FROM employees AS e
+RIGHT JOIN departments AS d ON e.DepartmentID = d.DepartmentID;
+
+------------------------------------------------------------------------------------------------------
+
+
+SELECT d.DepartmentID, d.DepartmentName, COUNT(e.EmployeeID) AS EmployeeCount
+FROM Departments d
+RIGHT JOIN Employees e ON d.DepartmentID = e.DepartmentID
+GROUP BY d.DepartmentID, d.DepartmentName;
+
+------------------------------------------------------------------------------------------------------
+ --Full Jion
+
+SELECT e.EmployeeID, e.FirstName, d.DepartmentName
+FROM employees AS e
+FULL OUTER JOIN departments AS d ON e.DepartmentID = d.DepartmentID;
+
+-----------------------------------------------------------------------------------------------------------
+
+--Cross Join
+SELECT *
+FROM employees
+CROSS JOIN departments;
+
+
+-------------------------------------------------------------------------------------------------------------
+--Union
+-- Query for Employees and Their Departments
+SELECT EmployeeID, FirstName, LastName, 'Employee' AS Type
+FROM Employees
+
+UNION
+
+-- Query for Departments
+SELECT DepartmentID, DepartmentName, NULL AS LastName, 'Department' AS Type
+FROM Departments;
+
+----------------------------------------------------------------------------------------------------
+--With
+
+WITH salary_expenses AS (
+SELECT departmentID, SUM(salary) as total_salary
+FROM employees
+GROUP BY departmentID
+)
+SELECT d.departmentName, s.total_salary
+FROM departments d
+JOIN salary_expenses s ON d.departmentID = s.departmentID;
+
+
+-----------------------------------------------------------------------------------------------------
+
+select *
+from departments;
+
+select *
+from employees;

@@ -1,0 +1,46 @@
+select *
+from employees;
+
+
+--Retrieve FirstName and LastName of all employees
+SELECT FirstName, LastName
+FROM Employees;
+
+--Calculate the average salary for each department and display the department name along with the average salary
+SELECT DepartmentName, AVG(Salary) AS AverageSalary
+FROM Employees
+JOIN Departments ON Employees.DepartmentID = Departments.DepartmentID
+GROUP BY DepartmentName;
+
+
+--Find the highest salary among all employees.
+SELECT MAX(Salary) AS HighestSalary
+FROM Employees;
+
+
+--List all employees who have a salary above the average salary.
+SELECT *
+FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+
+--Retrieve a list of departments that have no employees.
+SELECT DepartmentName
+FROM Departments
+WHERE DepartmentID NOT IN (SELECT DISTINCT DepartmentID FROM Employees WHERE DepartmentID IS NOT NULL);
+
+
+--Display the department with the most employees.
+SELECT DepartmentID, COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY DepartmentID
+ORDER BY EmployeeCount DESC
+LIMIT 1;
+
+
+
+
+
+
+
+
